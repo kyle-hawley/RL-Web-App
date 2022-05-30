@@ -46,7 +46,7 @@ function fishGameSketch(p) {
   };
 
   p.setup = function () {
-    p.createCanvas(500, 400);
+    p.createCanvas(500, 300);
     p.initializeSketch();
   };
 
