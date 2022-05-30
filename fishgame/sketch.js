@@ -1,13 +1,14 @@
 function fishGameSketch(p) {
+  let paused;
+
   let player1;
-  let sharks = [];
-  let fishes = [];
+  let sharks;
+  let fishes;
+  let score;
 
   const shark_rate = 0.003;
   const big_fish_rate = 0.005;
   const small_fish_rate = 0.005;
-
-  let score = 0;
   const shark_penalty = 30;
 
   spawn_fish_and_sharks = function () {
@@ -24,12 +25,36 @@ function fishGameSketch(p) {
     }
   };
 
+  p.isPaused = function () {
+    return paused;
+  };
+
+  p.pauseToggle = function (button) {
+    paused = button == "pause";
+  };
+
+  p.initializeSketch = function () {
+    player1 = new Player(p);
+    sharks = [];
+    fishes = [];
+    score = 0;
+
+    paused = true;
+    p.background(100, 150, 200);
+    player1.show();
+  };
+
   p.setup = function () {
     p.createCanvas(500, 400);
-    player1 = new Player(p);
+    p.initializeSketch();
   };
 
   p.draw = function () {
+    // Catches if the game is paused and if so skips the drawing loop
+    if (paused) {
+      return;
+    }
+
     p.background(100, 150, 200);
 
     // Spawn new fish
@@ -104,4 +129,4 @@ function fishGameSketch(p) {
   };
 }
 
-let sketch_test = new p5(fishGameSketch, "game_window");
+let fish_game_sketch = new p5(fishGameSketch, "game_window");

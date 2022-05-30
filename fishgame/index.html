@@ -24,6 +24,27 @@
   <body>
     <div id="game_window"></div>
 
+    <button
+      id="play_button"
+      onmousedown="fish_game_sketch.pauseToggle('play');"
+    >
+      Play
+    </button>
+
+    <button
+      id="pause_button"
+      onmousedown="fish_game_sketch.pauseToggle('pause');"
+    >
+      Pause
+    </button>
+
+    <button
+      id="reset_button"
+      onmousedown="fish_game_sketch.initializeSketch();"
+    >
+      Stop
+    </button>
+
     <!-- <div class="split left">
       <div class="centered">
         <h1 id="game_title">Fish Game</h1>
