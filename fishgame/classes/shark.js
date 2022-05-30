@@ -1,12 +1,15 @@
 class Shark {
   constructor(_p) {
     this.p = _p;
-    this.x = this.p.width - 50;
-    this.y = this.p.random(0, this.p.height);
-    this.vel = -2;
 
     this.height = 30;
     this.width = 45;
+    this.x = this.p.width + this.width;
+    this.y = this.p.random(0, this.p.height - this.height);
+    this.vel = -2;
+    this.mouth_size = 5;
+
+    this.penalty = 30;
   }
 
   show() {
@@ -27,9 +30,10 @@ class Shark {
 
   eats(fish) {
     let x_overlap =
-      this.x < fish.x + fish.width && this.x > fish.x + fish.width - 5;
+      this.x < fish.x + fish.width &&
+      this.x > fish.x + fish.width - this.mouth_size;
     let y_overlap =
-      fish.y - this.height < this.y && this.y < fish.y + fish.height;
+      this.y > fish.y - this.height && this.y < fish.y + fish.height;
 
     return x_overlap && y_overlap;
   }

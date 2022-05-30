@@ -1,6 +1,6 @@
 function fishGameSketch(p) {
   let paused;
-
+  let scoreboard;
   let player1;
   let sharks;
   let fishes;
@@ -9,7 +9,6 @@ function fishGameSketch(p) {
   const shark_rate = 0.003;
   const big_fish_rate = 0.005;
   const small_fish_rate = 0.005;
-  const shark_penalty = 30;
 
   spawn_fish_and_sharks = function () {
     if (p.random(0, 1) < shark_rate) {
@@ -34,6 +33,7 @@ function fishGameSketch(p) {
   };
 
   p.initializeSketch = function () {
+    scoreboard = new Scoreboard(p);
     player1 = new Player(p);
     sharks = [];
     fishes = [];
@@ -42,6 +42,7 @@ function fishGameSketch(p) {
     paused = true;
     p.background(100, 150, 200);
     player1.show();
+    scoreboard.show(score);
   };
 
   p.setup = function () {
@@ -87,7 +88,7 @@ function fishGameSketch(p) {
 
       // Did the shark eat the player?
       if (shark.eats(player1) && !player1.respawning) {
-        score -= shark_penalty;
+        score -= shark.penalty;
         player1.respawn();
       }
     }
@@ -122,10 +123,8 @@ function fishGameSketch(p) {
     }
 
     // Scoreboard. Might become it's own class soon.
-    p.stroke(0);
-    p.strokeWeight(1);
-    p.textSize(16);
-    p.text(p.str(score), p.width - 50, 50, p.width - 20, 70);
+
+    scoreboard.show(score);
   };
 }
 

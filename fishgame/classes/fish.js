@@ -2,9 +2,6 @@ class Fish {
   constructor(_p, _size) {
     this.p = _p;
     this.size = _size;
-    this.x = this.p.width - 50;
-    this.y = this.p.random(0, this.p.height);
-    this.vel = -1;
 
     if (this.size == "big") {
       this.width = 20;
@@ -17,6 +14,10 @@ class Fish {
       this.height = 5;
       this.points = 10;
     }
+
+    this.x = this.p.width + this.width;
+    this.y = this.p.random(0, this.p.height - this.height);
+    this.vel = -1;
   }
 
   show() {
