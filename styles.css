@@ -9,12 +9,16 @@
 
 .left {
   left: 0;
-  background-color: dimgray;
+  background-color: mediumaquamarine;
 }
 
 .right {
   right: 0;
-  background-color: bisque;
+  background-color: lightcyan;
+}
+
+.centered {
+  text-align: center;
 }
 
 #game_title {

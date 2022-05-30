@@ -129,4 +129,4 @@ function fishGameSketch(p) {
   };
 }
 
-let fish_game_sketch = new p5(fishGameSketch, "game_window");
+let fg_sketch = new p5(fishGameSketch, "game_window");
