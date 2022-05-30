@@ -26,7 +26,8 @@ function spawn_fish_and_sharks() {
 
 
 function setup() {
-	createCanvas(500, 400);
+	let canvas = createCanvas(500, 400);
+	canvas.parent('game_window')
 	// put setup code here
 
 	player1 = new Player();
@@ -67,6 +68,7 @@ function draw() {
 
 		// Did the shark eat the player?
 		if (shark.eats(player1) && !player1.respawning) {
+			console.log("eaten")
 			score -= shark_penalty;
 			player1.respawn();
 		}

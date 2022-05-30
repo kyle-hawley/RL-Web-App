@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>fishgame</title>
+		<title>Fish Game</title>
 		<script src="libraries/p5.js"></script>
 		<!-- <script src="libraries/p5.sound.js"></script> -->
 		<script src="sketch.js"></script>
@@ -19,10 +19,24 @@
 				margin: auto;
 			}
 		</style>
+		<link rel="stylesheet" href="styles.css">
 	</head>
 	<body>
 
-		<h1>Fish Game</h1>
+		<div class="split left">
+			<div class="centered">
+				<h1 id="game_title">Fish Game</h1>
+				<div id="game_window"></div>
+			</div>
+		</div>
+
+		<div class="split right">
+			<div class="centered">
+				<h2>Summary Stats go here :)</h2>
+			</div>
+		</div>
+		
+		
 
 	</body>
 </html>

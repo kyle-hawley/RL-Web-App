@@ -34,7 +34,7 @@ class Shark {
 
   eats(fish) {
 
-    let x_overlap = (this.x < fish.x + fish.width) && (this.x > fish.x + fish.width + 5);
+    let x_overlap = (this.x < fish.x + fish.width) && (this.x > fish.x + fish.width - 5);
     let y_overlap = (fish.y - this.height < this.y) && (this.y < fish.y + fish.height);
 
     return x_overlap && y_overlap;

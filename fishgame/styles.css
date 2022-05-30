@@ -1,0 +1,22 @@
+.split {
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  z-index: -1;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.left {
+  left: 0;
+  background-color: dimgray;
+}
+
+.right {
+  right: 0;
+  background-color: bisque;
+}
+
+#game_title {
+  color: darkblue;
+}
