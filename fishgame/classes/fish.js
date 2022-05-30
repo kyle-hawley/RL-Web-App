@@ -1,44 +1,36 @@
 class Fish {
-
-  constructor(size) {
-    this.size = size;
-
-    this.x = width -50;
-    this.y = random(0, height);
+  constructor(_p, _size) {
+    this.p = _p;
+    this.size = _size;
+    this.x = this.p.width - 50;
+    this.y = this.p.random(0, this.p.height);
     this.vel = -1;
 
-    if (this.size == 'big') {
+    if (this.size == "big") {
       this.width = 20;
       this.height = 15;
       this.points = 20;
     }
 
-    if (this.size == 'small') {
+    if (this.size == "small") {
       this.width = 10;
       this.height = 5;
-      this.points = 10
+      this.points = 10;
     }
   }
 
   show() {
-
-    stroke(200);
-    strokeWeight(2);
-    fill(200);
-    rect(this.x, this.y, this.width, this.height);
-
+    this.p.stroke(200);
+    this.p.strokeWeight(2);
+    this.p.fill(200);
+    this.p.rect(this.x, this.y, this.width, this.height);
   }
 
   update() {
-
-    this.x += this.vel
-
+    this.x += this.vel;
   }
 
   isOffscreen() {
-
-    return this.x + this.width < 0
-
+    return this.x + this.width < 0;
   }
-
 }
