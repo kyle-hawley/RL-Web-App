@@ -60,10 +60,15 @@ function fishGameSketch(p) {
     scoreboard.show(score);
 
     if (gamemode == "manual") {
-      player1 = new Player(p);
+      player1 = new Player(p, gamemode);
       player1.show();
     } else if (gamemode == "RL") {
-      console.log("init in RL mode");
+      players = [];
+      for (let i = 0; i < _stats_pkg.pop_size; i++) {
+        players.push(new Player(p, gamemode));
+      }
+
+      console.log(players);
     }
   };
 
