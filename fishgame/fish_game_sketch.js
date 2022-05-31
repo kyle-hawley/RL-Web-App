@@ -1,9 +1,10 @@
 function fishGameSketch(p) {
-  let gamemode;
+  let gamemode = "manual";
 
   let paused;
   let scoreboard;
   let player1;
+  let players;
   let sharks;
   let fishes;
   let score;
@@ -11,6 +12,28 @@ function fishGameSketch(p) {
   const shark_rate = 0.003;
   const big_fish_rate = 0.005;
   const small_fish_rate = 0.005;
+
+  p.isPaused = function () {
+    return paused;
+  };
+
+  p.pauseToggle = function (button) {
+    paused = button == "pause";
+  };
+
+  p.isManual = function () {
+    return gamemode == "manual";
+  };
+
+  p.gameModeToggle = function () {
+    if (gamemode == "manual") {
+      gamemode = "RL";
+    } else {
+      gamemode = "manual";
+    }
+
+    p.initializeSketch();
+  };
 
   spawn_fish_and_sharks = function () {
     if (p.random(0, 1) < shark_rate) {
@@ -26,25 +49,22 @@ function fishGameSketch(p) {
     }
   };
 
-  p.isPaused = function () {
-    return paused;
-  };
-
-  p.pauseToggle = function (button) {
-    paused = button == "pause";
-  };
-
   p.initializeSketch = function () {
     scoreboard = new Scoreboard(p);
-    player1 = new Player(p);
     sharks = [];
     fishes = [];
     score = 0;
 
     paused = true;
     p.background(100, 150, 200);
-    player1.show();
     scoreboard.show(score);
+
+    if (gamemode == "manual") {
+      player1 = new Player(p);
+      player1.show();
+    } else if (gamemode == "RL") {
+      console.log("init in RL mode");
+    }
   };
 
   p.setup = function () {

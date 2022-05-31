@@ -37,6 +37,13 @@
         <h1 id="game_title">Fish Game</h1>
         <div id="game_window"></div>
         <div id="buttons">
+          <button
+            id="gamemode_button"
+            onmousedown="gameModeButtonToggle(this, fg_sketch)"
+          >
+            MAN
+          </button>
+
           <button id="play_button" onmousedown="fg_sketch.pauseToggle('play');">
             Play
           </button>
