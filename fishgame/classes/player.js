@@ -16,6 +16,7 @@ class Player {
     this.respawning = false;
     this.respawn_timer = 0;
     this.default_respawn_time = 100;
+    this.score = 0;
 
     if (_gamemode == "RL") {
       this.brain = new NeuralNetwork(

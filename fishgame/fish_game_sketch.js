@@ -3,11 +3,9 @@ function fishGameSketch(p) {
 
   let paused;
   let scoreboard;
-  let player1;
   let players;
   let sharks;
   let fishes;
-  let score;
 
   const shark_rate = 0.003;
   const big_fish_rate = 0.005;
@@ -51,24 +49,22 @@ function fishGameSketch(p) {
 
   p.initializeSketch = function () {
     scoreboard = new Scoreboard(p);
+    players = [];
     sharks = [];
     fishes = [];
-    score = 0;
 
     paused = true;
     p.background(100, 150, 200);
-    scoreboard.show(score);
 
     if (gamemode == "manual") {
-      player1 = new Player(p, gamemode);
-      player1.show();
+      players.push(new Player(p, gamemode));
+      players[0].show();
+      scoreboard.show(players[0].score);
     } else if (gamemode == "RL") {
-      players = [];
       for (let i = 0; i < _stats_pkg.pop_size; i++) {
         players.push(new Player(p, gamemode));
+        players[i].show();
       }
-
-      console.log(players);
     }
   };
 
@@ -113,19 +109,25 @@ function fishGameSketch(p) {
         }
       }
 
-      // Did the shark eat the player?
-      if (shark.eats(player1) && !player1.respawning) {
-        score -= shark.penalty;
-        player1.respawn();
+      // Did the shark eat a player?
+      for (let player of players) {
+        if (shark.eats(player) && !player.respawning) {
+          player.score -= shark.penalty;
+          player.respawn();
+        }
       }
     }
 
-    // Check if player ate any fish
-    if (!player1.respawning) {
+    // Check if a player ate any fish?
+
+    for (let player of players) {
       for (i = fishes.length - 1; i >= 0; i--) {
-        if (player1.eats(fishes[i])) {
-          score += fishes[i].points;
-          fishes.splice(i, 1);
+        if (player.eats(fishes[i])) {
+          player.score += fishes[i].points;
+
+          if (gamemode == "manual") {
+            fishes.splice(i, 1);
+          }
         }
       }
     }
@@ -139,17 +141,19 @@ function fishGameSketch(p) {
       fish.show();
     }
 
-    // Player Code
-
-    player1.update();
-    player1.show();
-
-    if (p.keyIsPressed) {
-      player1.swim();
+    for (let player of players) {
+      player.update();
+      player.show();
     }
 
-    // Scoreboard. Might become it's own class soon.
+    // Manual movement
 
-    scoreboard.show(score);
+    if ((gamemode = "manual")) {
+      if (p.keyIsPressed) {
+        players[0].swim();
+      }
+
+      scoreboard.show(players[0].score);
+    }
   };
 }
