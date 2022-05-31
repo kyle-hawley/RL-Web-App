@@ -5,8 +5,5 @@ function statsSketch(p) {
 
   p.draw = function () {
     p.background(200, 200, 200);
-
-    p.stroke(0);
-    p.text("hi dad", 100, 100);
   };
 }

@@ -1,5 +1,5 @@
 class Player {
-  constructor(_p, _gamemode) {
+  constructor(_p, _in_manual_mode) {
     this.p = _p;
     this.x = 50;
     this.y = 100;
@@ -18,7 +18,7 @@ class Player {
     this.default_respawn_time = 100;
     this.score = 0;
 
-    if (_gamemode == "RL") {
+    if (_in_manual_mode) {
       this.brain = new NeuralNetwork(
         _stats_pkg.nn_config.in_size,
         _stats_pkg.nn_config.hidden_size,

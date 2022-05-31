@@ -1,8 +1,9 @@
 function fishGameSketch(p) {
-  let gamemode = "manual";
+  let in_manual_mode = true;
 
   let paused;
   let scoreboard;
+
   let players;
   let sharks;
   let fishes;
@@ -20,16 +21,11 @@ function fishGameSketch(p) {
   };
 
   p.isManual = function () {
-    return gamemode == "manual";
+    return in_manual_mode;
   };
 
   p.gameModeToggle = function () {
-    if (gamemode == "manual") {
-      gamemode = "RL";
-    } else {
-      gamemode = "manual";
-    }
-
+    in_manual_mode = !in_manual_mode;
     p.initializeSketch();
   };
 
@@ -56,13 +52,13 @@ function fishGameSketch(p) {
     paused = true;
     p.background(100, 150, 200);
 
-    if (gamemode == "manual") {
-      players.push(new Player(p, gamemode));
+    if (in_manual_mode) {
+      players.push(new Player(p, in_manual_mode));
       players[0].show();
       scoreboard.show(players[0].score);
-    } else if (gamemode == "RL") {
+    } else {
       for (let i = 0; i < _stats_pkg.pop_size; i++) {
-        players.push(new Player(p, gamemode));
+        players.push(new Player(p, in_manual_mode));
         players[i].show();
       }
     }
@@ -125,7 +121,7 @@ function fishGameSketch(p) {
         if (player.eats(fishes[i])) {
           player.score += fishes[i].points;
 
-          if (gamemode == "manual") {
+          if (in_manual_mode) {
             fishes.splice(i, 1);
           }
         }
@@ -148,11 +144,10 @@ function fishGameSketch(p) {
 
     // Manual movement
 
-    if ((gamemode = "manual")) {
+    if (in_manual_mode) {
       if (p.keyIsPressed) {
         players[0].swim();
       }
-
       scoreboard.show(players[0].score);
     }
   };
