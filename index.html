@@ -6,13 +6,16 @@
     <title>Fish Game</title>
     <!-- <script src="fishgame/libraries/p5.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.0/math.js"></script>
     <!-- <script src="libraries/p5.sound.js"></script> -->
     <script src="fishgame/fish_game_sketch.js"></script>
     <script src="fishgame/classes/player.js"></script>
     <script src="fishgame/classes/shark.js"></script>
     <script src="fishgame/classes/fish.js"></script>
     <script src="fishgame/classes/scoreboard.js"></script>
+
+    <script src="nn/neural_network.js"></script>
+
     <style>
       body {
         margin: 0;
@@ -25,11 +28,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="testcode">
-      <script>
-        console.log(ml5.version);
-      </script>
-    </div>
+    <div id="testcode"></div>
 
     <div class="split left">
       <div class="centered">
@@ -56,7 +55,7 @@
 
     <div class="split right">
       <div class="centered">
-        <h2>Summary Stats go here :)</h2>
+        <h2>Summary Stats coming soon!</h2>
       </div>
     </div>
   </body>
