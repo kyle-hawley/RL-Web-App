@@ -1,4 +1,6 @@
 function fishGameSketch(p) {
+  let gamemode;
+
   let paused;
   let scoreboard;
   let player1;
@@ -127,5 +129,3 @@ function fishGameSketch(p) {
     scoreboard.show(score);
   };
 }
-
-let fg_sketch = new p5(fishGameSketch, "game_window");
