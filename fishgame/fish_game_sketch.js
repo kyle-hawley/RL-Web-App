@@ -121,7 +121,6 @@ function fishGameSketch(p) {
     }
 
     // Check if player ate any fish
-
     if (!player1.respawning) {
       for (i = fishes.length - 1; i >= 0; i--) {
         if (player1.eats(fishes[i])) {
