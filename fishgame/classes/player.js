@@ -31,15 +31,36 @@ class Player {
     this.vel = this.strength;
   }
 
-  think(sharks, fishes) {
-    let inputs = [0.3, 0.6, 0.7, 0.6, 0.2, 0.9];
+  findClosestObject(objects) {
+    let closest_x = this.p.width;
+    let closest_object = {
+      x: 0,
+      y: 0,
+    };
 
-    // inputs[0] = this.y;
-    // inputs[1] = this.vel;
-    // inputs[2] = sharks[0].x;
-    // inputs[3] = sharks[0].y;
-    // inputs[4] = fishes[0].x;
-    // inputs[5] = fishes[0].y;
+    if (objects.length > 0) {
+      for (let object of objects) {
+        if (object.x < closest_x) {
+          closest_object = object;
+        }
+      }
+    }
+
+    return closest_object;
+  }
+
+  think(sharks, fishes) {
+    let closest_shark = this.findClosestObject(sharks);
+    let closest_fish = this.findClosestObject(fishes);
+
+    let inputs = [];
+
+    inputs[0] = this.y;
+    inputs[1] = this.vel;
+    inputs[2] = closest_shark.x;
+    inputs[3] = closest_shark.y;
+    inputs[4] = closest_fish.x;
+    inputs[5] = closest_fish.y;
 
     let output = this.brain.feedforward(inputs);
 

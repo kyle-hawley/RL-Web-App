@@ -50,9 +50,6 @@ class NeuralNetwork {
     let output = this.relu(
       math.add(math.multiply(this.ow, hidden_output), this.ob)
     );
-
-    console.log(output);
-
     return math.subset(output, math.index(0, 0));
   }
 
