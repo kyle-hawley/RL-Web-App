@@ -19,6 +19,18 @@ class NeuralNetwork {
     return matrix;
   }
 
+  sigmoid(matrix) {
+    let y;
+
+    matrix.forEach(function (value, index, matrix) {
+      y = 1 / (1 + math.e ** -value);
+
+      matrix.subset(math.index(index[0], index[1]), y);
+    });
+
+    return matrix;
+  }
+
   init_wb(m, n) {
     // Initializes random weights and biases between -1 and 1
     let matrix = math.ones(m, n);
@@ -47,10 +59,12 @@ class NeuralNetwork {
     );
 
     // This activation function should be different
-    let output = this.relu(
+    let output = this.sigmoid(
       math.add(math.multiply(this.ow, hidden_output), this.ob)
     );
-    return math.subset(output, math.index(0, 0));
+
+    //TODO this should not be always one element.
+    return output;
   }
 
   mutate() {}
