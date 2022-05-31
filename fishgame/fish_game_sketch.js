@@ -137,18 +137,24 @@ function fishGameSketch(p) {
       fish.show();
     }
 
-    for (let player of players) {
-      player.update();
-      player.show();
-    }
-
-    // Manual movement
-
+    // Player movement
     if (in_manual_mode) {
       if (p.keyIsPressed) {
         players[0].swim();
       }
       scoreboard.show(players[0].score);
+    } else {
+      for (let player of players) {
+        if (player.think(sharks, fishes)) {
+          player.swim();
+        }
+      }
+    }
+
+    // Show players
+    for (let player of players) {
+      player.update();
+      player.show();
     }
   };
 }

@@ -18,7 +18,7 @@ class Player {
     this.default_respawn_time = 100;
     this.score = 0;
 
-    if (_in_manual_mode) {
+    if (!_in_manual_mode) {
       this.brain = new NeuralNetwork(
         _stats_pkg.nn_config.in_size,
         _stats_pkg.nn_config.hidden_size,
@@ -27,15 +27,53 @@ class Player {
     }
   }
 
+  swim() {
+    this.vel = this.strength;
+  }
+
+  think(sharks, fishes) {
+    let inputs = [0.3, 0.6, 0.7, 0.6, 0.2, 0.9];
+
+    // inputs[0] = this.y;
+    // inputs[1] = this.vel;
+    // inputs[2] = sharks[0].x;
+    // inputs[3] = sharks[0].y;
+    // inputs[4] = fishes[0].x;
+    // inputs[5] = fishes[0].y;
+
+    let output = this.brain.feedforward(inputs);
+
+    if (output > 0.5) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  eats(fish) {
+    let x_overlap =
+      this.x + this.width > fish.x &&
+      this.x + this.width - this.mouth_size < fish.x;
+    let y_overlap =
+      this.y - fish.height < fish.y && this.y + this.height > fish.y;
+
+    return x_overlap && y_overlap;
+  }
+
+  respawn() {
+    this.respawning = true;
+    this.respawn_timer = this.default_respawn_time;
+  }
+
   show() {
     if (this.respawning) {
-      this.p.stroke(255, 0, 0);
+      this.p.stroke(255, 0, 0, 200);
       this.p.strokeWeight(2);
-      this.p.fill(255, 0, 0);
+      this.p.fill(255, 0, 0, 200);
     } else {
-      this.p.stroke(0);
+      this.p.stroke(0, 0, 0, 200);
       this.p.strokeWeight(2);
-      this.p.fill(0);
+      this.p.fill(0, 0, 0, 200);
     }
 
     this.p.rect(this.x, this.y, this.width, this.height);
@@ -63,24 +101,5 @@ class Player {
     } else if (this.respawn_timer == 0) {
       this.respawning = false;
     }
-  }
-
-  swim() {
-    this.vel = this.strength;
-  }
-
-  eats(fish) {
-    let x_overlap =
-      this.x + this.width > fish.x &&
-      this.x + this.width - this.mouth_size < fish.x;
-    let y_overlap =
-      this.y - fish.height < fish.y && this.y + this.height > fish.y;
-
-    return x_overlap && y_overlap;
-  }
-
-  respawn() {
-    this.respawning = true;
-    this.respawn_timer = this.default_respawn_time;
   }
 }
