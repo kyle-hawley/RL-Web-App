@@ -14,8 +14,8 @@ class Scoreboard {
     this.p.fill(255);
     this.p.rect(this.x, this.y, this.width, this.height);
 
-    this.p.noFill();
     this.p.stroke(0);
+    this.p.fill(0);
     this.p.strokeWeight(1);
     this.p.textSize(16);
     this.p.textAlign(this.p.CENTER, this.p.CENTER);
