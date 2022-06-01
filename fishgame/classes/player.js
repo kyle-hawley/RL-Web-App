@@ -17,14 +17,13 @@ class Player {
     this.respawn_timer = 0;
     this.default_respawn_time = 100;
     this.score = 0;
+    this.fitness = 0;
 
-    if (!_in_manual_mode) {
-      this.brain = new NeuralNetwork(
-        _stats_pkg.nn_config.in_size,
-        _stats_pkg.nn_config.hidden_size,
-        1
-      );
-    }
+    this.brain = new NeuralNetwork(
+      _stats_pkg.nn_config.in_size,
+      _stats_pkg.nn_config.hidden_size,
+      1
+    );
   }
 
   swim() {
@@ -32,7 +31,7 @@ class Player {
   }
 
   findClosestObject(objects) {
-    let closest_x = this.p.width;
+    let closest_x = Infinity;
     let closest_object = {
       x: 0,
       y: 0,
@@ -40,7 +39,7 @@ class Player {
 
     if (objects.length > 0) {
       for (let object of objects) {
-        if (object.x < closest_x) {
+        if (object.x < closest_x && object.x > this.x + this.width) {
           closest_object = object;
         }
       }
@@ -55,14 +54,15 @@ class Player {
 
     let inputs = [];
 
-    inputs[0] = this.y;
-    inputs[1] = this.vel;
-    inputs[2] = closest_shark.x;
-    inputs[3] = closest_shark.y;
-    inputs[4] = closest_fish.x;
-    inputs[5] = closest_fish.y;
+    inputs[0] = this.y / this.p.height;
+    inputs[1] = this.vel / 5;
+    inputs[2] = closest_shark.x / this.p.width;
+    inputs[3] = closest_shark.y / this.p.height;
+    inputs[4] = closest_fish.x / this.p.width;
+    inputs[5] = closest_fish.y / this.p.height;
 
     let output = this.brain.feedforward(inputs);
+    output = math.subset(output, math.index(0, 0)); // grab the value
 
     if (output > 0.5) {
       return true;
@@ -87,14 +87,15 @@ class Player {
   }
 
   show() {
+    let a = 100;
     if (this.respawning) {
-      this.p.stroke(255, 0, 0, 200);
+      this.p.stroke(255, 0, 0, a);
       this.p.strokeWeight(2);
-      this.p.fill(255, 0, 0, 200);
+      this.p.fill(255, 0, 0, a);
     } else {
-      this.p.stroke(0, 0, 0, 200);
+      this.p.stroke(0, 0, 0, a);
       this.p.strokeWeight(2);
-      this.p.fill(0, 0, 0, 200);
+      this.p.fill(0, 0, 0, a);
     }
 
     this.p.rect(this.x, this.y, this.width, this.height);

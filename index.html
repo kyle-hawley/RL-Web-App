@@ -18,6 +18,7 @@
 
     <!-- Neural Network Class -->
     <script src="nn/neural_network.js"></script>
+    <script src="ga.js"></script>
 
     <!-- Stats Sketch -->
     <script src="stats_sketch.js"></script>
@@ -62,7 +63,10 @@
             Pause
           </button>
 
-          <button id="reset_button" onmousedown="fg_sketch.initializeSketch();">
+          <button
+            id="reset_button"
+            onmousedown="fg_sketch.initializeSketch(true);"
+          >
             Stop
           </button>
         </div>

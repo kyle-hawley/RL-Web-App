@@ -8,8 +8,8 @@ let _stats_pkg = {
     in_size: 6,
     hidden_size: 4,
   },
-  pop_size: 10,
-  mut_rate: 0.01,
+  pop_size: 100,
+  mut_rate: 0.1,
 };
 
 let fg_sketch = new p5(fishGameSketch, "game_window");

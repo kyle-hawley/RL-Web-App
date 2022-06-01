@@ -31,18 +31,28 @@ class NeuralNetwork {
     return matrix;
   }
 
+  negOneToOne() {
+    let num;
+
+    if (Math.random() < 0.5) {
+      num = Math.random();
+    } else {
+      num = -Math.random();
+    }
+
+    return num;
+  }
+
   init_wb(m, n) {
     // Initializes random weights and biases between -1 and 1
     let matrix = math.ones(m, n);
     let new_num;
+    let self = this;
 
     matrix.forEach(function (value, index, matrix) {
       // There might be a better way to get a random value from -1 to 1 in JS
-      if (Math.random() < 0.5) {
-        new_num = Math.random();
-      } else {
-        new_num = -Math.random();
-      }
+
+      new_num = self.negOneToOne();
 
       matrix.subset(math.index(index[0], index[1]), new_num);
     });
@@ -63,9 +73,44 @@ class NeuralNetwork {
       math.add(math.multiply(this.ow, hidden_output), this.ob)
     );
 
-    //TODO this should not be always one element.
     return output;
   }
 
-  mutate() {}
+  // This is temporary but right now this is mutating the original neural network.
+  // I might want this to make a copy eventually.
+  mutate(mut_rate) {
+    let self = this;
+    let new_num;
+    let scale = 0.2;
+
+    this.hw.forEach(function (value, index, hw) {
+      if (Math.random() < mut_rate) {
+        new_num = value + self.negOneToOne() * scale;
+        hw.subset(math.index(index[0], index[1]), new_num);
+      }
+    });
+
+    this.hb.forEach(function (value, index, hb) {
+      if (Math.random() < mut_rate) {
+        new_num = value + self.negOneToOne() * scale;
+        hb.subset(math.index(index[0], index[1]), new_num);
+      }
+    });
+
+    this.ow.forEach(function (value, index, ow) {
+      if (Math.random() < mut_rate) {
+        new_num = value + self.negOneToOne() * scale;
+        ow.subset(math.index(index[0], index[1]), new_num);
+      }
+    });
+
+    this.ob.forEach(function (value, index, ob) {
+      if (Math.random() < mut_rate) {
+        new_num = value + self.negOneToOne() * scale;
+        ob.subset(math.index(index[0], index[1]), new_num);
+      }
+    });
+
+    return this;
+  }
 }
