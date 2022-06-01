@@ -125,6 +125,11 @@ function fishGameSketch(p) {
         for (let player of players) {
           if (shark.eats(player) && !player.respawning) {
             player.score -= shark.penalty;
+
+            if (player.score < 0) {
+              players.score = 0;
+            }
+
             player.respawn();
           }
         }

@@ -23,7 +23,6 @@ function createNextGeneration(p, players, game) {
 
 function calculateFitness(players) {
   let score_sum = 0;
-  let fitness_sum = 0;
 
   for (let player of players) {
     score_sum += player.score;
@@ -31,10 +30,9 @@ function calculateFitness(players) {
 
   for (let player of players) {
     player.fitness = player.score / score_sum;
-    fitness_sum += player.fitness;
   }
 
-  console.log(fitness_sum / _stats_pkg.pop_size);
+  console.log(score_sum / _stats_pkg.pop_size);
 }
 
 function pickPlayer(players) {
